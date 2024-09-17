@@ -32,4 +32,16 @@ app.get('/api/:nm', async (req, res) => {
     res.status(500).send('Error');
   }
 });
+app.get('/api/sum/:nm', async (req, res) => {
+  try {
+    const data = await DB.aggregate([
+      { $match: { name: req.params.nm } },
+      { $group: { _id: "$name", total_transfer: { $sum: "$money_transfer" } } } // Sum money_transfer
+    ]);
+    res.status(200).json(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Error');
+  }
+});
 module.exports = app;

@@ -16,6 +16,11 @@
         "src": "/api/(?<nm>[^/]+)",
         "methods": ["GET"],
         "dest": "/script.js"
+      },
+      {
+        "src": "/api/sum/(?<nm>[^/]+)",
+        "methods": ["GET"],
+        "dest": "/script.js"
       }
     ]
   }
