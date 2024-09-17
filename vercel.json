@@ -1,19 +1,21 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "script.js",
-            "use": "@vercel/node"
-        }
+      {
+        "src": "script.js",
+        "use": "@vercel/node"
+      }
     ],
     "routes": [
-        {
-            "src": "/insert",
-            "dest": "/script.js"
-        },
-        {
-            "src": "/api/(?<nm>[^/]+)",
-            "dest": "/script.js"
-        }
+      {
+        "src": "/insert",
+        "methods": ["POST"],
+        "dest": "/api/insert"
+      },
+      {
+        "src": "/api/(?<nm>[^/]+)",
+        "methods": ["GET"],
+        "dest": "/api/api"
+      }
     ]
-}
+  }  
