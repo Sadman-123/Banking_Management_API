@@ -10,12 +10,13 @@
       {
         "src": "/insert",
         "methods": ["POST"],
-        "dest": "/api/insert"
+        "dest": "/script.js"
       },
       {
         "src": "/api/(?<nm>[^/]+)",
         "methods": ["GET"],
-        "dest": "/api/api"
+        "dest": "/script.js"
       }
     ]
-  }  
+  }
+  
