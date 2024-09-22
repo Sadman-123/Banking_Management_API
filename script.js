@@ -5,6 +5,7 @@ const bdy = require('body-parser');
 const DB = require('./db/bankdb');
 const userDB=require('./db/userdb');
 const bcrypt=require('bcrypt');
+const jwt=require('jsonwebtoken');
 app.use(cors());
 app.use(bdy.urlencoded({ extended: true }));
 app.use(bdy.json());
@@ -86,7 +87,10 @@ app.post('/login',async (req,res)=>{
   {
     bcrypt.compare(password, user.password, function(err, result) {
      if(result){
-      res.status(200).send("Login Successful")
+      const token=jwt.sign({username:username,id:user.id},process.env.secret,{expiresIn:'1h'});
+      res.status(200).json({
+        token:token
+      })
      }
      else{
       res.status(400).send('Password not matched')
