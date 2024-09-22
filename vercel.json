@@ -23,12 +23,12 @@
         "dest": "/script.js"
       },
       {
-        "src": "/api/(?<nm>[^/]+)",
+        "src": "/transactions",
         "methods": ["GET"],
         "dest": "/script.js"
       },
       {
-        "src": "/api/sum/(?<nm>[^/]+)",
+        "src": "/transactions/sum",
         "methods": ["GET"],
         "dest": "/script.js"
       }

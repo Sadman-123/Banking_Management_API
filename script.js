@@ -53,12 +53,12 @@ app.post('/login',async (req,res)=>{
     res.status(404).send("User not Exists")
   }
 })
-app.post('/insert', async (req, res) => {
+app.post('/insert',validate_user, async (req, res) => {
   const lol = new DB({
     time: req.body.time,
     add: req.body.add,
     money_transfer: req.body.money_transfer,
-    name: req.body.name,
+    name: req.username,
   });
   try {
     await lol.save();
@@ -68,19 +68,19 @@ app.post('/insert', async (req, res) => {
     res.status(500).send('Error');
   }
 });
-app.get('/api/:nm', async (req, res) => {
+app.get('/transactions', validate_user,async (req, res) => {
   try {
-    const data = await DB.find({ name: req.params.nm });
+    const data = await DB.find({ name: req.username });
     res.status(200).json(data);
   } catch (e) {
     console.log(e);
     res.status(500).send('Error');
   }
 });
-app.get('/api/sum/:nm', async (req, res) => {
+app.get('/transactions/sum', validate_user,async (req, res) => {
   try {
     const data = await DB.aggregate([
-      { $match: { name: req.params.nm } },
+      { $match: { name: req.username } },
       {
         $group: {
           _id: "$name",
