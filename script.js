@@ -79,3 +79,21 @@ app.post('/register',async (req,res)=>{
   }
 
 });
+app.post('/login',async (req,res)=>{
+  const {username,password}=req.body;
+  const user=await userDB.findOne({username:username});
+  if(user)
+  {
+    bcrypt.compare(password, user.password, function(err, result) {
+     if(result){
+      res.status(200).send("Login Successful")
+     }
+     else{
+      res.status(400).send('Password not matched')
+     }
+  });
+  }
+  else{
+    res.status(404).send("User not Exists")
+  }
+})
