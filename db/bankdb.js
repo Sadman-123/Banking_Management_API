@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongo=require('mongoose');
 mongo.connect('mongodb+srv://sadman:sad%402600@mycluster.phgzxsa.mongodb.net/myflutter');
 const Schem=new mongo.Schema(
