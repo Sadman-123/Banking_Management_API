@@ -6,6 +6,7 @@ const DB = require('./db/bankdb');
 const userDB=require('./db/userdb');
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
+const validate_user=require('./middleware/verify_user');
 app.use(cors());
 app.use(bdy.urlencoded({ extended: true }));
 app.use(bdy.json());
@@ -67,7 +68,6 @@ app.post('/insert', async (req, res) => {
     res.status(500).send('Error');
   }
 });
-
 app.get('/api/:nm', async (req, res) => {
   try {
     const data = await DB.find({ name: req.params.nm });
@@ -98,5 +98,3 @@ app.get('/api/sum/:nm', async (req, res) => {
     res.status(500).send('Error');
   }
 });
-app.listen(process.env.port,()=>{console.log(`Listening ${process.env.port}`)})
-
