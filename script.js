@@ -1,12 +1,12 @@
+require('dotenv').config();
 const app = require('express')();
 const cors = require('cors');
 const bdy = require('body-parser');
 const DB = require('./db/bankdb');
-
+const userDB=require('./db/userdb')
 app.use(cors());
 app.use(bdy.urlencoded({ extended: true }));
 app.use(bdy.json());
-
 app.post('/insert', async (req, res) => {
   const lol = new DB({
     time: req.body.time,
@@ -53,4 +53,26 @@ app.get('/api/sum/:nm', async (req, res) => {
     res.status(500).send('Error');
   }
 });
-module.exports = app;
+app.listen(process.env.port,()=>{console.log(`Listening ${process.env.port}`)})
+
+app.post('/register',async (req,res)=>{
+  const {username,password}=req.body;
+  try{
+    const user=await userDB.findOne({username:username});
+    if(user)
+    {
+      return res.status(400).send("User Already Exists")
+    }
+    const newuser=new userDB({
+      username:username,
+      password:password,
+      time:new Date().toUTCString()
+    })
+    await newuser.save()
+    res.status(200).send("User Created")
+  }
+  catch{
+    res.status(400).send('Something went wrong')
+  }
+
+});

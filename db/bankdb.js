@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongo=require('mongoose');
-mongo.connect('mongodb+srv://sadman:sad%402600@mycluster.phgzxsa.mongodb.net/myflutter');
+mongo.connect(process.env.dburl);
 const Schem=new mongo.Schema(
     {
         "money_transfer":Number,
