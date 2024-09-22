@@ -98,3 +98,4 @@ app.get('/transactions/sum', validate_user,async (req, res) => {
     res.status(500).send('Error');
   }
 });
+module.exports=app;
