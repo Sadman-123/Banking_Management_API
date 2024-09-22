@@ -8,6 +8,11 @@
     ],
     "routes": [
       {
+        "src": "/register",
+        "methods": ["POST"],
+        "dest": "/script.js"
+      },
+      {
         "src": "/insert",
         "methods": ["POST"],
         "dest": "/script.js"
