@@ -3,7 +3,8 @@ const app = require('express')();
 const cors = require('cors');
 const bdy = require('body-parser');
 const DB = require('./db/bankdb');
-const userDB=require('./db/userdb')
+const userDB=require('./db/userdb');
+const bcrypt=require('bcrypt');
 app.use(cors());
 app.use(bdy.urlencoded({ extended: true }));
 app.use(bdy.json());
@@ -63,13 +64,15 @@ app.post('/register',async (req,res)=>{
     {
       return res.status(400).send("User Already Exists")
     }
-    const newuser=new userDB({
-      username:username,
-      password:password,
-      time:new Date().toUTCString()
-    })
-    await newuser.save()
-    res.status(200).send("User Created")
+    bcrypt.hash(password, 10, async function(err, hash) {
+      const newuser=new userDB({
+        username:username,
+        password:hash,
+        time:new Date().toUTCString()
+      })
+      await newuser.save()
+      res.status(200).send("User Created")
+  });
   }
   catch{
     res.status(400).send('Something went wrong')
