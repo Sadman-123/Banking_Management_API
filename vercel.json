@@ -8,6 +8,11 @@
     ],
     "routes": [
       {
+        "src": "/login",
+        "methods": ["POST"],
+        "dest": "/script.js"
+      },
+      {
         "src": "/register",
         "methods": ["POST"],
         "dest": "/script.js"
